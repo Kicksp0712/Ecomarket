@@ -66,7 +66,7 @@ const CreateComment = ({ user, postId }) => {
             <TextareaAutosize
                 id={idtxtArea}
                 onChange={(e) => changedTextArea(e)}
-                className="w-full text-xs bg-gray-100 rounded border border-gray-400 leading-normal resize-none py-[8px] px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
+                className="w-full text-xs bg-gray-100 rounded border border-gray-400 leading-normal resize-none py-3 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
                 placeholder='Escribre algo'  
                 />
             {formComment.touched.content &&
