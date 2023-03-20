@@ -1,7 +1,6 @@
-import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
-import { Toaster } from 'react-hot-toast';
+import React, { useEffect, useState } from 'react';
+import { toast, Toaster } from 'react-hot-toast';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
@@ -9,41 +8,55 @@ import { auth, db } from './firebase';
 import CreateAccount from './pages/CreateAccount/CreateAccount';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
+import ProtectedRoute from './ProtectedRoute';
+import PrivateRoute from './ProtectedRoute';
+import { onAuthStateChanged } from 'firebase/auth';
+
+import CreatePost from './pages/CreatePost/CreatePost';
+import { UserAuth } from './Context/AuthContext';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({});
+
+  const { userAuth } = UserAuth();
+
   const [userDoc, setUserDoc] = useState({});
-  onAuthStateChanged(auth, (cU) => {
-    setCurrentUser(cU);
-  });
 
   useEffect(() => {
     const docGet = async () => {
-      const docRef = doc(db, 'users', currentUser?.uid);
+      const docRef = doc(db, 'users', userAuth?.uid);
       await getDoc(docRef).then((res) => {
         setUserDoc(res.data());
       });
     };
-    if (currentUser?.uid) {
+    if (userAuth?.uid) {
       docGet();
     }
-  }, [currentUser]);
+  }, [userAuth]); 
 
-  let user = { ...currentUser, ...userDoc };
+  let user = { ...userAuth, ...userDoc };
 
   return (
     <>
       <BrowserRouter>
         <Toaster />
-        <Navbar user={user} />
         <Routes>
-          <Route path='/' element={<Home user={user} />} />
+
+          <Route path="/" element={
+          <ProtectedRoute>
+            <Home user={user}/>
+          </ProtectedRoute>}/>
+          
+          <Route path="/create-post" element={
+            <ProtectedRoute>
+              <CreatePost user={user}/>
+            </ProtectedRoute>
+          }/>
+
           <Route path='/login' element={<Login user={user} />} />
           <Route
             path='/create-account'
             element={<CreateAccount user={user} />}
           />
-          
         </Routes>
       </BrowserRouter>
     </>

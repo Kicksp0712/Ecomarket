@@ -107,7 +107,7 @@ const CreateAccount = ({ user }) => {
             </div>
 
             <div className='relative mt-1'>
-              <div className='flex items-center gap-[10px] focus:outline-none w-72 sm:w-full'>
+              <div className='flex items-center gap-[10px] focus:outline-none  sm:w-full'>
                 <label
                   className='relative w-full cursor-pointer'
                   htmlFor='file'
@@ -130,7 +130,7 @@ const CreateAccount = ({ user }) => {
                 </label>
               </div>
               {formik.touched.image && Boolean(formik.errors.image) && (
-                <div className='font-semibold text-primary'>
+                <div  auto className='font-semibold text-primary'>
                   {formik.errors.image}
                 </div>
               )}

@@ -9,6 +9,7 @@ import { doc, addDoc, collection, serverTimestamp, setDoc } from 'firebase/fires
 import { FiUpload } from 'react-icons/fi';
 import moment from 'moment/moment';
 import { getStorage, ref, uploadString, getDownloadURL } from "firebase/storage";
+import Navbar from '../../components/Navbar/Navbar';
 
 
 const CreatePost = ({ user }) => {
@@ -98,6 +99,9 @@ const CreatePost = ({ user }) => {
 
 
   return (
+    <>
+              <Navbar user={user}/>
+
     <div className='max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8 bg-primary'>
       <Toaster />
       <div className='max-w-lg mx-auto'>
@@ -106,7 +110,6 @@ const CreatePost = ({ user }) => {
           className='p-8 mt-6 mb-12 space-y-4 rounded-lg shadow-lg shadow-black border-2 border-gray-200 bg-white'
         >
           <div className='flex items-center justify-center text-center flex-col'>
-            <img src='/logo.png' alt='logo' width={300} height={300} />
             <p className='text-2xl font-medium flex items-center space-x-2'>
               <AiFillEdit /> <span>Crear publicacion</span>
             </p>
@@ -118,8 +121,8 @@ const CreatePost = ({ user }) => {
 
                   {formik.values.images.length > 0 ? (
                     <div className='relative w-full mx-auto flex flex-row gap-6 snap-x snap-mandatory overflow-x-auto pb-8 rounded-lg'>
-                      <div class="snap-center shrink-0">
-                        <div class="shrink-0 w-4 sm:w-12"></div>
+                      <div className="snap-center shrink-0">
+                        <div className="shrink-0 w-4 sm:w-12"></div>
                       </div>
                       {Array.from({ length: formik.values.images.length }).map((_, index) => (
 
@@ -193,6 +196,8 @@ const CreatePost = ({ user }) => {
         </form>
       </div>
     </div>
+    
+    </>
   );
 };
 

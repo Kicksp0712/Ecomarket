@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import { db } from '../../firebase';
 import CommentSection from '../../components/CommentSection';
 import CreateComment from '../../components/CreateComment';
-
+import Navbar from '../../components/Navbar/Navbar';
 const Home = ({ user }) => {
   const [posts, setPosts] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
-
+  
   React.useEffect(() => {
     let LogsRef = collection(db, 'posts');
     const q = query(LogsRef, orderBy('time', 'desc'));
@@ -37,11 +37,13 @@ const Home = ({ user }) => {
         </div>
       ) : (
         <>
-          <div className='mx-auto my-8 grid grid-cols-1 px-8 gap-4 w-[50vw] sm:w-[99vw] sm:mx-0 lg:w-[99vw]'>
+          <Navbar user={user}/>
+
+          <div className='mx-auto  my-20 grid grid-cols-1 px-8 gap-4 w-[50vw] sm:w-[99vw] sm:mx-0 lg:w-[99vw]'>
             {posts?.map((post, i) => {
               return (
                 <div
-                  key={i}
+                  key={`post_${i}`}
                   className='w-full bg-white shadow-lg shadow-primary p-4 flex flex-col rounded-md'
                 >
                   <div className='flex space-x-1 text-gray-500 italic text-sm'>
@@ -59,7 +61,7 @@ const Home = ({ user }) => {
                   <div className="relative w-full  flex flex-row justify-center  gap-6 snap-x snap-mandatory overflow-x-auto pb-8">
                     {Array.from({ length: post?.images.length }).map((_, index) => (
 
-                      <div className="snap-center shrink-0">
+                      <div key={index} className="snap-center shrink-0">
                         <img 
                         onClick={() => {
                         //console.log('on click');
@@ -72,7 +74,7 @@ const Home = ({ user }) => {
                          e.target.src = 'No pudimos cargar la imagen:(';
                        }}
                         className='mx-auto shrink-0 cursor-pointer w-40 h-40 rounded-lg shadow-xl bg-white'
-                          key={index} src={post?.images[index]} alt={`Image ${index}`} />
+                          src={post?.images[index]} alt={`Image ${index}`} />
                       </div>
                     ))}
 

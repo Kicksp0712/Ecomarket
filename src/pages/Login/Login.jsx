@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -8,6 +8,8 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
 
 const Login = ({ user }) => {
+  
+
   const [showPass, setShowPass] = useState(false);
   const removeFirebaseLetters = (text) => {
     return text.slice(10).replace('auth/', '');

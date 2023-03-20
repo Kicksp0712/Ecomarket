@@ -28,8 +28,8 @@ const CommentSection = ({ postId }) => {
         <>
             <div className='w-full bg-white rounded-lg border p-2 my-4 '>
                 <h3 className='font-bold'>Comentarios</h3>
-                <div class="flex flex-col">
-                    <div class=" p-1 my-1">
+                <div className="flex flex-col">
+                    <div className=" p-1 my-1">
 
                         {/* Show message if there aren't comments*/}
                         {comments?.length === 0 ? (
@@ -45,23 +45,23 @@ const CommentSection = ({ postId }) => {
                                     {comments?.map((comment, i) => {
                                         return (
                                             <div key={i} className='flex flex-flow-row my-2 '>
-                                                <div class=" gap-3 items-center">
+                                                <div className=" gap-3 items-center">
                                                     {comment.userImage ? (
 
                                                         <img src={comment?.userImage}
-                                                            class="object-cover w-6 h-6 rounded-full" />
+                                                            className="object-cover w-6 h-6 rounded-full" />
                                                     ) : (
                                                         <img src="https://www.seekpng.com/png/detail/41-410093_circled-user-icon-user-profile-icon-png.png"
-                                                            class="object-cover w-6 h-6 rounded-full" />
+                                                            className="object-cover w-6 h-6 rounded-full" />
 
                                                     )
                                                     }
                                                 </div>
                                                 <div className='ml-1 border rounded-md w-full p-1'>
-                                                    <h3 class="font-bold text-sm">
+                                                    <h3 className="font-bold text-sm">
                                                         {comment?.userName}
                                                     </h3>
-                                                    <p class="text-gray-600 text-sm">
+                                                    <p className="text-gray-600 text-sm">
                                                         {comment?.content}
                                                     </p>
                                                 </div>

@@ -62,7 +62,7 @@ const CreateComment = ({ user, postId }) => {
 
 
     return (<div>
-        <div class=" mt-2 mb-0">
+        <div className=" mt-2 mb-0">
             <TextareaAutosize
                 id={idtxtArea}
                 onChange={(e) => changedTextArea(e)}
@@ -78,7 +78,7 @@ const CreateComment = ({ user, postId }) => {
         </div>
         <div className='w-full flex justify-end '>
             <button type='submit' onClick={formComment.handleSubmit}
-            class="px-2.5 py-1.5 rounded-md text-white text-sm bg-green-500 active:bg-green-700  disabled:opacity-25">Comentar</button>
+            className="px-2.5 py-1.5 rounded-md text-white text-sm bg-green-500 active:bg-green-700  disabled:opacity-25">Comentar</button>
 
         </div>
     </div>);
