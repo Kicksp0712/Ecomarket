@@ -61,8 +61,8 @@ const CommentSection = ({ postId }) => {
                                                     <h3 className="font-bold text-sm">
                                                         {comment?.userName}
                                                     </h3>
-                                                    <p className="text-gray-600 text-sm">
-                                                        {comment?.content}
+                                                    <p className="text-gray-600 text-sm break-all">
+                                                        {comment?.content} 
                                                     </p>
                                                 </div>
 

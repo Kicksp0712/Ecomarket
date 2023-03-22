@@ -18,7 +18,9 @@ const CreateComment = ({ user, postId }) => {
             content: ""
         },
         validationSchema: yup.object({
-            content: yup.string().required('Comentario vacio')
+            content: yup.string()
+            .max(1000,"Solo se pueden escribir 1000 letras")
+            .required('Comentario vacio')
         }),
         onSubmit: (values) => {
             
@@ -66,8 +68,11 @@ const CreateComment = ({ user, postId }) => {
             <TextareaAutosize
                 id={idtxtArea}
                 onChange={(e) => changedTextArea(e)}
-                className="w-full text-xs bg-gray-100 rounded border border-gray-400 leading-normal resize-none py-3 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
-                placeholder='Escribre algo'  
+                className="w-full text-xs  bg-gray-100 rounded border border-gray-400 leading-normal resize-none py-3 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
+                placeholder='Escribre algo'
+                value={formComment.values.content}  
+                onBlur={formComment.handleBlur}
+                maxLength="1000"
                 />
             {formComment.touched.content &&
                 Boolean(formComment.errors.content) && (

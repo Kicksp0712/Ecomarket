@@ -26,7 +26,10 @@ const CreateAccount = ({ user }) => {
       image: '',
     },
     validationSchema: yup.object({
-      name: yup.string().required('Su nombre es requerido'),
+      name: yup
+      .string()
+      .max(40,"El nombre no puede tener mas de 20 caracteres")
+      .required('Su nombre es requerido'),
       email: yup
         .string()
         .required("El email del usuario es requerido")
@@ -45,12 +48,13 @@ const CreateAccount = ({ user }) => {
           });
         })
         .then(async () => {
+          await setTimeout(() => {
+            navigate('/');
+          }, 2000);
           toast.success(
             `Bienvenido a E-comarket ${values.name}, diviertete!`
           );
-          setTimeout(() => {
-            navigate('/');
-          }, 2000);
+         
         })
         .catch((e) => {
           toast.error(`${removeFirebaseLetters(e.message)}`);
@@ -78,12 +82,12 @@ const CreateAccount = ({ user }) => {
   }, [user, navigate]);
 
   return (
-    <div className='max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8 bg-primary'>
+    <div className='max-w-screen-xl p-1  mx-auto sm:px-6 lg:px-8 bg-primary'>
       <Toaster />
-      <div className='max-w-lg mx-auto'>
+      <div className='w-2/5 mx-auto'>
         <form
           action=''
-          className='p-8 mt-6 mb-12 space-y-4 rounded-lg shadow-lg shadow-black border-2 border-gray-200 bg-white'
+          className='p-8 space-y-1 rounded-lg shadow-lg shadow-black border-2 border-gray-200 bg-white'
         >
           <div className='flex items-center justify-center text-center flex-col'>
             <img src='/ecomarket.png' alt='logo' width={300} height={300} />
@@ -119,7 +123,7 @@ const CreateAccount = ({ user }) => {
                     {formik.values.image ? 'Re-Upload' : 'Upload'}
                   </p>
                   <input
-                    accept='image/*'
+                    accept='.png, .jpg, .jpeg'
                     onChange={encode}
                     className='hidden'
                     type='file'
@@ -137,7 +141,7 @@ const CreateAccount = ({ user }) => {
             </div>
           </div>
           <div>
-            <label htmlFor='name' className='text-lg font-medium'>
+            <label htmlFor='name' className='text-lg font-medium' >
               Nombre
             </label>
 
@@ -145,10 +149,11 @@ const CreateAccount = ({ user }) => {
               <input
                 type='text'
                 id='name'
-                className='w-full p-4 pr-12 text-sm border-2 border-gray-200 rounded-lg shadow-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary'
+                className='w-full p-2 pr-12 text-sm border-2 border-gray-200 rounded-lg shadow-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary'
                 placeholder='Enter your name.'
                 value={formik.values.name}
                 onChange={formik.handleChange}
+                maxLength="40"
               />
 
               <span className='absolute inset-y-0 inline-flex items-center right-4'>
@@ -183,10 +188,12 @@ const CreateAccount = ({ user }) => {
               <input
                 type='email'
                 id='email'
-                className='w-full p-4 pr-12 text-sm border-2 border-gray-200 rounded-lg shadow-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary'
+                className='w-full p-2 pr-12 text-sm border-2 border-gray-200 rounded-lg shadow-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary'
                 placeholder='Enter your email.'
                 value={formik.values.email}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+
               />
 
               <span className='absolute inset-y-0 inline-flex items-center right-4'>
@@ -222,10 +229,12 @@ const CreateAccount = ({ user }) => {
               <input
                 type={showPass ? 'text' : 'password'}
                 id='password'
-                className='w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary'
+                className='w-full p-2 pr-12 text-sm border-gray-200 rounded-lg shadow-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary'
                 placeholder='Enter password'
                 value={formik.values.password}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+
               />
 
               {showPass && (
