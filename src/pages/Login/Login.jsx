@@ -57,15 +57,15 @@ const Login = ({ user }) => {
     }
   }, [user, navigate]);
   return (
-    <div className='max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8 bg-primary h-screen'>
+    <div className=' px-4  mx-auto sm:px-6 lg:px-5 bg-primary'>
       <Toaster />
-      <div className='max-w-lg mx-auto'>
+      <div className='p-2 w-2/5 mx-auto'>
         {/* Image + Headings  */}
 
         {/* Form  */}
         <form
           action=''
-          className='p-8 mt-6 mb-12 space-y-4 rounded-lg shadow-lg shadow-black border-2 border-gray-200 bg-white'
+          className='p-8 space-y-2 rounded-lg shadow-lg shadow-black border-2 border-gray-200 bg-white'
         >
           <div className='flex items-center justify-center text-center flex-col'>
             <img src='/ecomarket.png' alt='logo' width={300} height={300} />
@@ -79,7 +79,7 @@ const Login = ({ user }) => {
               <input
                 type='email'
                 id='email'
-                className='w-full p-4 pr-12 text-sm border-2 border-gray-200 rounded-lg shadow-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary'
+                className='w-full p-2  text-sm border-2 border-gray-200 rounded-lg shadow-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary'
                 placeholder='Ingresa tu correo.'
                 value={formik.values.email}
                 onChange={formik.handleChange}
@@ -118,7 +118,7 @@ const Login = ({ user }) => {
               <input
                 type={showPass ? 'text' : 'password'}
                 id='password'
-                className='w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary'
+                className='w-full p-2 pr-12 text-sm border-gray-200 rounded-lg shadow-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary'
                 placeholder='Ingresa la contraseña'
                 value={formik.values.password}
                 onChange={formik.handleChange}
@@ -151,7 +151,7 @@ const Login = ({ user }) => {
           {/* Buttons  */}
           <button
             type='submit'
-            className='block w-full px-5 py-3 text-sm font-medium text-white bg-primary rounded-lg transition-all hover:scale-105'
+            className='block w-full px-5 py-2 text-sm font-medium text-white bg-primary rounded-lg transition-all hover:scale-105'
             onClick={formik.handleSubmit}
           >
             Ingresar

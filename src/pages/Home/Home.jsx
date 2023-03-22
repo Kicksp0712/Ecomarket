@@ -29,7 +29,7 @@ const Home = ({ user }) => {
 
   return (
     <>
-              
+      <Navbar user={user}/>
 
       {posts?.length === 0 ? (
         <div className='flex items-center justify-center w-screen h-screen font-bold italic'>
@@ -37,7 +37,7 @@ const Home = ({ user }) => {
         </div>
       ) : (
         <>
-          <Navbar user={user}/>
+          
 
           <div className='mx-auto  my-20 grid grid-cols-1 px-8 gap-4 w-[50vw] sm:w-[99vw] sm:mx-0 lg:w-[99vw]'>
             {posts?.map((post, i) => {
