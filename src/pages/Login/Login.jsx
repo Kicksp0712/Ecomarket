@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -57,9 +57,9 @@ const Login = ({ user }) => {
     }
   }, [user, navigate]);
   return (
-    <div className=' px-4  mx-auto sm:px-6 lg:px-5 bg-primary'>
+    <div className=' p-10 h-[700px] mx-auto sm:p-1 lg:p-1  bg-primary'>
       <Toaster />
-      <div className='p-2 w-2/5 mx-auto'>
+      <div className=' px-1 mx-auto md:px-10 xl:px-64'>
         {/* Image + Headings  */}
 
         {/* Form  */}

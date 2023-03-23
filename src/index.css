@@ -6,3 +6,33 @@ body {
   width: 100%;
   overflow-x: hidden;
 }
+
+
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+
+body::-webkit-scrollbar {
+  -webkit-appearance: none;
+  background-color: white;
+}
+
+body::-webkit-scrollbar:vertical {
+  width:10px;
+}
+
+body::-webkit-scrollbar-button:increment,body::-webkit-scrollbar-button {
+  display: none;
+} 
+
+body::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #4F7942;
+  border-radius: 20px;
+  border: 2px solid white;
+}
+
+body::-webkit-scrollbar-track {
+  border-radius: 10px;  
+}
