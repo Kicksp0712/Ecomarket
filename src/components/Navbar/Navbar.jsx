@@ -37,6 +37,7 @@ const Navbar = ({ user }) => {
             aria-controls='navbar-default'
             aria-expanded='false'
             onClick={() => setOpen((prev) => !prev)}
+            onBlur ={()=>setOpen(false)}
           >
             <img
               src={user?.image}
@@ -44,8 +45,8 @@ const Navbar = ({ user }) => {
               className='rounded-full  w-10 h-10 border-4 border-primary'
             />
               {/* Menu */}
-            <div className={`md:block md:w-auto absolute top-9 transition-all ${open ? 'opacity-100  scale-100 ' : 'opacity-0'}`} id='navbar-default'>
-              <ul className='flex flex-col p-4 mt-4 border border-gray-100 space-y-2 rounded-lg bg-primary font-bold text-white md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700'>
+            <div className={`md:block md:w-auto absolute top-9   transition-all ${open ? 'opacity-100  scale-100 ' : 'opacity-0'}`} id='navbar-default'>
+              <ul className='flex flex-col m-1 p-4 mt-4 border border-gray-100 space-y-2 rounded-lg bg-primary font-bold text-white md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700'>
                 <li>
                   <div
                     className='block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-black bg-white'
