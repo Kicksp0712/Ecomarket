@@ -159,11 +159,12 @@ const CreatePost = ({ user }) => {
                     {/* <span className='absolute bottom-0 my-auto'> {}</span> */}
                   </label>
                 </div>
-                {formik.touched.image && Boolean(formik.errors.image) && (
+                {formik.touched.images && Boolean(formik.errors.images) && (
                   <div className='font-semibold text-primary'>
-                    {formik.errors.image}
+                    {formik.errors.images}
                   </div>
                 )}
+              
               </div>
             </div>
             <div>
