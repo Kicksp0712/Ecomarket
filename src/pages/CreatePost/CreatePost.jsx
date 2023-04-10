@@ -11,7 +11,7 @@ import moment from 'moment/moment';
 import { getStorage, ref, uploadString, getDownloadURL } from "firebase/storage";
 import Navbar from '../../components/Navbar/Navbar';
 import { async } from '@firebase/util';
-
+import { MdAttachMoney } from 'react-icons/md'
 
 const CreatePost = ({ user }) => {
   const navigate = useNavigate();
@@ -23,11 +23,12 @@ const CreatePost = ({ user }) => {
       description: '',
     },
     validationSchema: yup.object({
-      description: yup.string().required('Descripcion es necesaria').min(5,"Se requiere una descripcion mas completa"),
+      description: yup.string().required('Descripcion es necesaria').min(5, "Se requiere una descripcion mas completa"),
       images: yup.array()
         .of(yup.string())
         .min(1, 'Al menos 1 imagen es necesaria')
         .max(4, 'No se permiten mas de 4 imagenes'),
+      precio: yup.number().required("Coloca un precio").positive("El precio debe ser mayor a $ 0.00")
     }),
     onSubmit: (values) => {
       const docRef = doc(collection(db, 'posts'));
@@ -41,6 +42,7 @@ const CreatePost = ({ user }) => {
                 images: urlImages,
                 description: values.description,
                 createdAt: moment().format('DD MMM, h:mm a'),
+                precio: values.precio,
                 time: serverTimestamp(),
                 contact: user?.email,
                 name: user?.name,
@@ -56,16 +58,16 @@ const CreatePost = ({ user }) => {
     },
   });
 
- 
 
-  const encode =  (e) => {
+
+  const encode = (e) => {
     const files = Array.from(e.target.files);
     const images = [];
-    if (files.length>4 ){
+    if (files.length > 4) {
       toast.error("Solo se permiten hasta cuatro imagenes");
     }
-    
-    for(let i=0;i<=3;i++){
+
+    for (let i = 0; i <files.length; i++) {
       const reader = new FileReader();
       reader.addEventListener("load", function () {
         images.push(reader.result);
@@ -73,7 +75,7 @@ const CreatePost = ({ user }) => {
       });
       reader.readAsDataURL(files[i]);
     }
-    
+
   }
 
   //Metodo creado por Kevin Duran
@@ -129,9 +131,9 @@ const CreatePost = ({ user }) => {
                         </div>
                         {Array.from({ length: formik.values.images.length }).map((_, index) => (
 
-                          <div className="snap-center shrink-0">
+                          <div className="snap-center shrink-0"  key={`image_${index}`} id={`image_${index}`}>
                             <img className='shrink-0 w-40 h-40 rounded-lg shadow-xl bg-white'
-                              key={index} src={formik.values.images[index]} alt={`Image ${index}`} />
+                               src={formik.values.images[index]} alt={`Image ${index}`} />
                           </div>
                         ))}
                         <div className="snap-center shrink-0">
@@ -164,7 +166,7 @@ const CreatePost = ({ user }) => {
                     {formik.errors.images}
                   </div>
                 )}
-              
+
               </div>
             </div>
             <div>
@@ -191,6 +193,18 @@ const CreatePost = ({ user }) => {
                   )}
               </div>
             </div>
+            <div className='relative mt-1 flex items-center'>
+              <MdAttachMoney className='text-lg' />
+              <input type="number" className='w-full border-2 border-gray-200 rounded-lg' placeholder='Precio' id="precio" name="precio" value={formik.values.precio} onChange={formik.handleChange} />
+            
+            </div>
+            {
+              formik.touched.precio  && Boolean(formik.errors.precio) && (
+                  <div className='font-semibold text-primary'>
+                    {formik.errors.precio}
+                  </div>
+                )
+              }
             <button
               type='submit'
               className='block w-full px-5 py-3 text-sm font-medium text-white bg-primary rounded-lg transition-all hover:scale-105'
