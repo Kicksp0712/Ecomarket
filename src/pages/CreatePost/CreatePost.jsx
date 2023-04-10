@@ -23,7 +23,7 @@ const CreatePost = ({ user }) => {
       description: '',
     },
     validationSchema: yup.object({
-      description: yup.string().required('Descripcion es necesaria'),
+      description: yup.string().required('Descripcion es necesaria').min(5,"Se requiere una descripcion mas completa"),
       images: yup.array()
         .of(yup.string())
         .min(1, 'Al menos 1 imagen es necesaria')
