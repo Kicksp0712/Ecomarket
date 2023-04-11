@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { db } from '../firebase';
 
 
+
 const CommentSection = ({ postId }) => {
     // State variables
     const [comments, setComments] = useState([]);

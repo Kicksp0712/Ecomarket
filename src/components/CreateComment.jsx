@@ -7,6 +7,7 @@ import moment from "moment";
 import { db } from '../firebase';
 
 
+
 const CreateComment = ({ user, postId }) => {
     const [disabledButton, setEnableButton] = useState(true);
     const idtxtArea = `textAreaComment_${postId}`;
