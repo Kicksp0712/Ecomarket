@@ -55,6 +55,7 @@ const Home = ({ user }) => {
                     <span>Contact</span>
                     <h1 className='font-bold text-black'>{post?.contact}</h1>
                   </div>
+                  
                 
                   <div className="relative w-full  flex flex-row justify-center  gap-6 snap-x snap-mandatory overflow-x-auto pb-8">
                     {Array.from({ length: post?.images.length }).map((_, index) => (
@@ -79,6 +80,11 @@ const Home = ({ user }) => {
 
 
                   </div>
+                  {Boolean(post?.precio) && (
+                    <div className="flex space-x-1 text-black text-md">
+                      <span>${post?.precio}</span>
+                    </div>
+                  )}
                   <h3 className='font-bold text-black mt-2'>Descripción</h3>
                   <p className='text-sm italic break-words'>
                     {post?.description}
