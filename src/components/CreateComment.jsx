@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextareaAutosize from 'react-textarea-autosize';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -20,8 +20,10 @@ const CreateComment = ({ user, postId }) => {
         },
         validationSchema: yup.object({
             content: yup.string()
-            .max(1000,"Solo se pueden escribir 1000 letras")
             .required('Comentario vacio')
+            .min(5,"Escribe un comentario mas detallado")
+            .max(1000,"Solo se pueden escribir 1000 caracteres")
+            
         }),
         onSubmit: (values) => {
             
@@ -50,7 +52,7 @@ const CreateComment = ({ user, postId }) => {
 
     const changedTextArea = (e) => {
         let text = e.target.value;
-        if (text.length > 0) {
+        if (text.length >= 0) {
             setEnableButton(false);
             formComment.setFieldValue("content",text);
         } else {
@@ -59,6 +61,8 @@ const CreateComment = ({ user, postId }) => {
 
     }
 
+
+    
    
 
 
