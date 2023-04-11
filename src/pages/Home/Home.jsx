@@ -1,6 +1,8 @@
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { db } from '../../firebase';
+import CommentSection  from '../../components/CommentSection';
+import CreateComment  from '../../components/CreateComment';
 import Navbar from '../../components/Navbar/Navbar';
 const Home = ({ user }) => {
   const [posts, setPosts] = useState([]);
@@ -89,7 +91,11 @@ const Home = ({ user }) => {
                   <p className='text-sm italic break-words'>
                     {post?.description}
                   </p>
-                
+                  
+
+
+                  <CommentSection key={`coments_${i}`} postId={post?.id}/>
+                  <CreateComment key={`createcomment_${i}`} postId={post?.id} user={user} />
                 </div>
               );
             })}
