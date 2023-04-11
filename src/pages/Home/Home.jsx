@@ -92,8 +92,6 @@ const Home = ({ user }) => {
                     {post?.description}
                   </p>
                   
-
-
                   <CommentSection key={`coments_${i}`} postId={post?.id}/>
                   <CreateComment key={`createcomment_${i}`} postId={post?.id} user={user} />
                 </div>
