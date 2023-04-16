@@ -1,3 +1,4 @@
+import React from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
 import {
     createUserWithEmailAndPassword,
@@ -8,9 +9,9 @@ import {
 import { auth } from '../firebase';
 import { async } from '@firebase/util';
 
-const UserContext = createContext();
+const UserAuthContext = createContext();
 
-
+  
 /**
  * AuthContext is a provider has the values or function of 
  * authentification in whole application.
@@ -26,7 +27,7 @@ export const AuthContext = (props) => {
   };
 
    const signIn = (email, password) =>  {
-    return signInWithEmailAndPassword(auth, email, password)
+    return signInWithEmailAndPassword(auth, email, password);
    }
 
   const logout = () => {
@@ -44,12 +45,12 @@ export const AuthContext = (props) => {
 
 
   return (
-    <UserContext.Provider value={{ createUser, userAuth, logout, signIn }}>
+    <UserAuthContext.Provider value={{ createUser, userAuth, logout, signIn }}>
       {props.children}
-    </UserContext.Provider>
+    </UserAuthContext.Provider>
   );
 };
 
 export const UserAuth = () => {
-  return useContext(UserContext);
+  return useContext(UserAuthContext);
 };

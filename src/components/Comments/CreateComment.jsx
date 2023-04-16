@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TextareaAutosize from 'react-textarea-autosize';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { doc, addDoc, collection, serverTimestamp, setDoc } from 'firebase/firestore';
+import {  addDoc, collection } from 'firebase/firestore';
 import moment from "moment";
-import { db } from '../firebase';
+import { db } from '../../firebase'
 
 
 

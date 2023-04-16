@@ -8,8 +8,11 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
 import { doc, setDoc } from 'firebase/firestore';
 import { FiUpload } from 'react-icons/fi';
+import { UserData } from '../../Context/UserContext';
 
-const CreateAccount = ({ user }) => {
+const CreateAccount = () => {
+  
+  const {user} = UserData();
   const [showPass, setShowPass] = useState(false);
   const removeFirebaseLetters = (text) => {
     return text.slice(10).replace('auth/', '');

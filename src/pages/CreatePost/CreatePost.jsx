@@ -5,15 +5,17 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { db } from '../../firebase';
 import { toast, Toaster } from 'react-hot-toast';
-import { doc, addDoc, collection, serverTimestamp, setDoc } from 'firebase/firestore';
+import { doc, collection, serverTimestamp, setDoc } from 'firebase/firestore';
 import { FiUpload } from 'react-icons/fi';
 import moment from 'moment/moment';
 import { getStorage, ref, uploadString, getDownloadURL } from "firebase/storage";
 import Navbar from '../../components/Navbar/Navbar';
-import { async } from '@firebase/util';
 import { MdAttachMoney } from 'react-icons/md'
+import { UserData } from '../../Context/UserContext';
 
-const CreatePost = ({ user }) => {
+const CreatePost = () => {
+
+  const {user} = UserData();
   const navigate = useNavigate();
   const storage = getStorage();
 
@@ -105,7 +107,6 @@ const CreatePost = ({ user }) => {
 
   return (
     <>
-      <Navbar user={user} />
 
       <div className='max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8 bg-primary'>
         <Toaster />
@@ -133,7 +134,7 @@ const CreatePost = ({ user }) => {
 
                           <div className="snap-center shrink-0"  key={`image_${index}`} id={`image_${index}`}>
                             <img className='shrink-0 w-40 h-40 rounded-lg shadow-xl bg-white'
-                               src={formik.values.images[index]} alt={`Image ${index}`} />
+                               src={formik.values.images[index]} alt={`upload_${index}`} />
                           </div>
                         ))}
                         <div className="snap-center shrink-0">

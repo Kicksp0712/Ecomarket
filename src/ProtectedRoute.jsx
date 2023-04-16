@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { getAuth,onAuthStateChanged } from 'firebase/auth';
-import { Route, Navigate, Outlet } from 'react-router-dom';
-import { auth } from './firebase';
-import { toast } from 'react-hot-toast';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
 import { UserAuth } from './Context/AuthContext';
 
 /**

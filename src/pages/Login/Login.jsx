@@ -6,10 +6,11 @@ import * as yup from 'yup';
 import { auth } from '../../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
+import { UserData } from '../../Context/UserContext';
 
-const Login = ({ user }) => {
+const Login = () => {
   
-
+  const {user} = UserData();
   const [showPass, setShowPass] = useState(false);
   const removeFirebaseLetters = (text) => {
     return text.slice(10).replace('auth/', '');

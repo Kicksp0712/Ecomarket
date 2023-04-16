@@ -36,3 +36,11 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-track {
   border-radius: 10px;  
 }
+
+.button-custom{
+  @apply border hover:border-black bg-primary text-white font-bold py-2 px-4 rounded my-2 w-full hover:bg-lime-800 duration-100;
+}
+
+.form-errors{
+  @apply font-semibold text-primary
+}

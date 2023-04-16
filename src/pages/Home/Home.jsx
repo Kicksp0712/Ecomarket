@@ -1,10 +1,12 @@
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { db } from '../../firebase';
-import CommentSection  from '../../components/CommentSection';
-import CreateComment  from '../../components/CreateComment';
+import CommentSection  from '../../components/Comments/CommentSection';
+import CreateComment  from '../../components/Comments/CreateComment';
 import Navbar from '../../components/Navbar/Navbar';
-const Home = ({ user }) => {
+import { UserData } from '../../Context/UserContext';
+const Home = () => {
+  const {user} = UserData();
   const [posts, setPosts] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
@@ -29,7 +31,6 @@ const Home = ({ user }) => {
 
   return (
     <>
-      <Navbar user={user}/>
 
       {posts?.length === 0 ? (
         <div className='flex items-center justify-center w-screen h-screen font-bold italic'>
@@ -75,7 +76,7 @@ const Home = ({ user }) => {
                          e.target.src = 'No pudimos cargar la imagen:(';
                        }}
                         className='mx-auto shrink-0 cursor-pointer w-40 h-40 rounded-lg shadow-xl bg-white'
-                          src={post?.images[index]} alt={`Image ${index}`} />
+                          src={post?.images[index]} alt={`product_${index}`} />
                       </div>
                     ))}
 
@@ -104,7 +105,7 @@ const Home = ({ user }) => {
   <div className="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center">
     <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-900 opacity-50"></div>
     <div className=" rounded-lg z-50 overflow-y-auto mx-auto">
-      <img className='w-2/4 mx-auto' src={selectedImage} alt="Selected Image"  />
+      <img className='w-2/4 mx-auto' src={selectedImage} alt="Selected"  />
       <button onClick={handleCloseModal} className="absolute top-0 right-0 m-4 text-white hover:text-gray-400">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
