@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { db } from '../../firebase';
 import CommentSection  from '../../components/Comments/CommentSection';
 import CreateComment  from '../../components/Comments/CreateComment';
-import Navbar from '../../components/Navbar/Navbar';
 import { UserData } from '../../Context/UserContext';
 const Home = () => {
   const {user} = UserData();

@@ -49,7 +49,7 @@ const Navbar = () => {
               <li>
 
                 <Link
-                  to='/profile'
+                  to={`/user/${user?.uid}`}
                   className='block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-white hover:border hover:border-white'
                   aria-current='page'
                 >
@@ -75,6 +75,18 @@ const Navbar = () => {
                 >
                   Publicar venta
                 </Link>
+
+              </li>
+              <li>
+                <Link
+                  to='/account'
+                  className='block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 hover:text-black hover:bg-white transition-all'
+                  aria-current='page'
+                  onClick={() => setOpen((prev) => !prev)}
+                >
+                  Cuenta
+                </Link>
+
               </li>
               <li>
                 <div

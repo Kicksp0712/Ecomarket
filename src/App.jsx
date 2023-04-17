@@ -14,6 +14,7 @@ import { UserContext } from './Context/UserContext';
 import { UserAuth } from './Context/AuthContext';
 import Navbar from './components/Navbar/Navbar';
 import { NavbarLogin } from './components/Navbar/NavbarLogin';
+import ProfileUser from './pages/ProfileUser/ProfileUser';
 
 function App() {
   const { userAuth } = UserAuth();
@@ -42,11 +43,15 @@ function App() {
               </ProtectedRoute>}
             />
 
-            <Route path='/profile' element={
+            <Route path='/account' element={
               <ProtectedRoute>
                 <ProfileManagemnt />
               </ProtectedRoute>
             } />
+            <Route path="/user/:id" element={
+                <ProfileUser />
+            }/>
+
             <Route
               path='/create-account'
               element={<CreateAccount />}
