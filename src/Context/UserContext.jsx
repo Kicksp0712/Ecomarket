@@ -18,7 +18,7 @@ function UserContext({children}) {
         const data = docSnap.data();
         setUserDoc({...userAuth,...data});
     };
-    if (userAuth.uid) {
+    if (userAuth?.uid) {
         docGet();
     }
   },[userAuth]);

@@ -40,6 +40,9 @@ body::-webkit-scrollbar-track {
 .button-custom{
   @apply border hover:border-black bg-primary text-white font-bold py-2 px-4 rounded my-2 w-full hover:bg-lime-800 duration-100;
 }
+.button-custom-alert{
+  @apply border hover:border-black bg-red-600 text-white font-bold py-2 px-4 rounded my-2 w-full hover:bg-red-900 duration-100;
+}
 
 .form-errors{
   @apply font-semibold text-primary

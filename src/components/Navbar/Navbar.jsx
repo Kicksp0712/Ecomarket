@@ -50,7 +50,7 @@ const Navbar = () => {
 
                 <Link
                   to='/profile'
-                  className='block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-black hover:bg-white'
+                  className='block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-white hover:border hover:border-white'
                   aria-current='page'
                 >
                   {user?.name}
