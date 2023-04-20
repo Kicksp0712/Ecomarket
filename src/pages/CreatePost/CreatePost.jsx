@@ -25,7 +25,7 @@ const CreatePost = () => {
       description: '',
     },
     validationSchema: yup.object({
-      description: yup.string().required('Descripcion es necesaria').min(5, "Se requiere una descripcion mas completa"),
+      description: yup.string().required('Descripcion es necesaria').min(5, "Se requiere una descripcion mas completa").max(500,"Solo se pueden escribir 500 caracteres"),
       images: yup.array()
         .of(yup.string())
         .min(1, 'Al menos 1 imagen es necesaria')
@@ -51,9 +51,12 @@ const CreatePost = () => {
               })
           ).then(() =>
             navigate("/")
-          );
+          ).catch(()=>{
+            toast.error("No se pudo crear la publicacion");
+          })
       } catch (error) {
         console.error(error);
+        toast.error("No se pudo crear la publicacion");
       }
 
 

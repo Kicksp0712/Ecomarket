@@ -13,7 +13,6 @@ const FormUser = ({ openModal,user,setUserDoc}) => {
     const initialValues = {
         name: user?.name ? user?.name : "",
         phone: user?.phone ? user?.phone: "",
-        image: user?.image ? user?.image : "",
     }
 
     const validationSchema = yup.object({
@@ -22,14 +21,13 @@ const FormUser = ({ openModal,user,setUserDoc}) => {
             .max(40, "El nombre no puede tener mas de 20 caracteres")
             .required('Su nombre es requerido'),
         phone: yup.number().min(10, "El numero tiene que ser de 10 digitos"),
-        image: yup.string().required("Se requiere una imagen")
     })
 
 
     const onSubmit = async (values) => {
         const docUserRef = doc(db, 'users', user?.uid);
-        await updateDoc(docUserRef, values).then(()  => {
-            setUserDoc({...user,...values})
+        await updateDoc(docUserRef,values).then(()  => {
+            setUserDoc({...user,...values});
             toast.success("Se ha actualizado los datos");
         }).catch((reason) => {
             console.error(reason);
