@@ -1,8 +1,7 @@
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { db } from '../../firebase';
-import CommentSection  from '../../components/Comments/CommentSection';
-import CreateComment  from '../../components/Comments/CreateComment';
+import { ContainerComments } from '../../components/Comments/ContainerComments';
 import { UserData } from '../../Context/UserContext';
 const Home = () => {
   const {user} = UserData();
@@ -92,8 +91,9 @@ const Home = () => {
                     {post?.description}
                   </p>
                   
-                  <CommentSection key={`coments_${i}`} postId={post?.id}/>
-                  <CreateComment key={`createcomment_${i}`} postId={post?.id} user={user} />
+                  {/* <SectionComment key={`coments_${i}`} postId={post?.id}/>
+                  <FormComment key={`createcomment_${i}`} postId={post?.id} user={user} /> */}
+                  <ContainerComments user={user} postId={post?.id} />
                 </div>
               );
             })}

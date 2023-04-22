@@ -1,12 +1,33 @@
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { db } from '../../firebase'
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 
 
-const CommentSection = ({ postId }) => {
-    // State variables
+const SectionComment = ({user, postId, setCommentEditing}) => {
     const [comments, setComments] = useState([]);
+
+    //Use to navigate to user profile
+    let navigate = useNavigate();
+
+    const navigateProfile = (uid)=>{
+        navigate(`/user/${uid}`);
+    }   
+
+    const handleEditingComment = (textComment,idComment)=>{ 
+        setCommentEditing({id:idComment,content:textComment});
+    }
+
+    const deleteComment = (idComment) =>{
+        let docRef = doc(db,`posts/${postId}/comments/${idComment}`);
+        deleteDoc(docRef).then(()=>{
+            toast.success("Se eliminado el comentario",{position:"bottom-center"})
+        }).catch(()=>{
+            toast.error("Intentalo mas tarde",{position:"bottom-center"});
+        });
+    }
 
     // Get comments firestore and excute the render the dom.
     React.useEffect(() => {
@@ -17,7 +38,7 @@ const CommentSection = ({ postId }) => {
         onSnapshot(q, (querySnapshot) => {
             let logs = [];
             querySnapshot.forEach((doc) => {
-                let comment = doc.data();
+                let comment = {id:doc.id,...doc.data()};
                 logs.push(comment);
                 setComments(logs);
             })
@@ -59,12 +80,19 @@ const CommentSection = ({ postId }) => {
                                                     }
                                                 </div>
                                                 <div className='ml-1 border rounded-md w-full p-1'>
-                                                    <h3 className="font-bold text-sm">
+                                                    <a onClick={()=>navigateProfile(comment?.uid)} className="font-bold text-sm cursor-pointer">
+
                                                         {comment?.userName}
-                                                    </h3>
+                                                    </a>
                                                     <p className="text-gray-600 text-sm break-all">
                                                         {comment?.content} 
                                                     </p>
+                                                    {(user?.uid === comment?.uid) && (
+                                                        <div name={`${user?.uid}_${comment?.uid}`} className='flex justify-end space-x-3'>
+                                                            <a onClick={()=>{handleEditingComment(comment?.content,comment.id)}} className=' hover:text-primary cursor-pointer'>Editar</a>
+                                                            <a onClick={()=>{deleteComment(comment?.id)}} className='hover:text-primary cursor-pointer'>Eliminar</a>
+                                                        </div>
+                                                    )}
                                                 </div>
 
                                             </div>
@@ -83,4 +111,4 @@ const CommentSection = ({ postId }) => {
 
 };
 
-export default CommentSection;
+export default SectionComment;

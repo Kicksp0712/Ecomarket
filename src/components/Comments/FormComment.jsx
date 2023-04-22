@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextareaAutosize from 'react-textarea-autosize';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -8,10 +8,8 @@ import { db } from '../../firebase'
 
 
 
-const CreateComment = ({ user, postId }) => {
-    const [disabledButton, setEnableButton] = useState(true);
+const FormComment = ({ user, postId,createComment,updateComment,isEditing, commentEditing}) => {
     const idtxtArea = `textAreaComment_${postId}`;
-    const textArea = document.querySelector(`#${idtxtArea}`);
 
 
     const formComment = useFormik({
@@ -26,46 +24,27 @@ const CreateComment = ({ user, postId }) => {
             
         }),
         onSubmit: (values) => {
-            
-            const commentsRef = collection(db,`posts/${postId}/comments`);
-
-            addDoc(commentsRef, {
-                content: values.content,
-                userName: user.name,
-                userImage: user.image,
-                datetime: moment().format('DD MM, h:mm a'),
-                
-            }).then((result) => {
-                console.log(result);
-                //Reset the textArea
-                textArea.value = "";
-            }).catch((err) => {
-                console.error(err);
-            });
-
-            formComment.resetForm();
-
+            if(commentEditing.id && commentEditing.content){
+                updateComment(values.content);
+                formComment.resetForm();
+            }else{  
+                createComment(values.content);
+            }
         }
 
     });
-
+    // Set comment text value  to commenty input when a comment is editing-
+    useEffect(()=>{
+        formComment.setFieldValue("content",commentEditing.content);
+    },[commentEditing]);
 
     const changedTextArea = (e) => {
         let text = e.target.value;
         if (text.length >= 0) {
-            setEnableButton(false);
             formComment.setFieldValue("content",text);
-        } else {
-            setEnableButton(true);
-        }
+        } 
 
     }
-
-
-    
-   
-
-
 
 
     return (<div>
@@ -89,10 +68,9 @@ const CreateComment = ({ user, postId }) => {
         <div className='w-full flex justify-end '>
             <button type='submit' onClick={formComment.handleSubmit}
             className="px-2.5 py-1.5 rounded-md text-white text-sm bg-green-500 active:bg-green-700  disabled:opacity-25">Comentar</button>
-
         </div>
     </div>);
 
 }
 
-export default CreateComment;
+export default FormComment;

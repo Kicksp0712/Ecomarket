@@ -15,7 +15,6 @@ const ProfileUser = () => {
       const docSnap = await getDoc(docRefUser);
       if(docSnap.exists()){
         setUser({...docSnap.data()});
-        console.log(user);
       }
     }
     getDocUser();
