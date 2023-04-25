@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { UserData } from '../../Context/UserContext';
-import { useEffect } from 'react';
+import { NotificationTray } from '../NotificationTray/NotificationTray';
 const Navbar = () => {
   let {user} = UserData();
 
@@ -29,6 +29,10 @@ const Navbar = () => {
             <img src='/ecomarket.png' className=' h-8 mr-3 sm:h-9' alt='Logo' />
           </div>
         </Link>
+        
+
+        <div className='flex flex-row items-center space-x-5'>
+        <NotificationTray user={user} />
         <button
           data-collapse-toggle='navbar-default'
           type='button'
@@ -37,12 +41,12 @@ const Navbar = () => {
           aria-expanded='false'
           onClick={() => setOpen((prev) => !prev)}
           onBlur={() => setTimeout(() => { setOpen(false) }, 250)}
-        >
+        >  
           <img
             src={user?.image}
             alt={user?.uid}
             className='rounded-full  w-10 h-10 border-4 border-primary'
-          />
+            />
           {/* Menu */}
           <div className={`md:block md:w-auto absolute top-9   transition-all ${!open && 'hidden'}`} id='navbar-default'>
             <ul className='flex flex-col m-1 p-4 mt-4 border border-gray-100 space-y-2 rounded-lg bg-primary font-bold text-white md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700'>
@@ -52,7 +56,7 @@ const Navbar = () => {
                   to={`/user/${user?.uid}`}
                   className='block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-white hover:border hover:border-white'
                   aria-current='page'
-                >
+                  >
                   {user?.name}
                 </Link>
               </li>
@@ -62,7 +66,7 @@ const Navbar = () => {
                   className={`${window.location.pathname === "/" ? "hidden" : ""} block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 hover:text-black hover:bg-white transition-all`}
                   aria-current='page'
                   onClick={() => setOpen((prev) => !prev)}
-                >
+                  >
                   Inicio
                 </Link>
               </li>
@@ -72,7 +76,7 @@ const Navbar = () => {
                   className='block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 hover:text-black hover:bg-white transition-all'
                   aria-current='page'
                   onClick={() => setOpen((prev) => !prev)}
-                >
+                  >
                   Publicar venta
                 </Link>
 
@@ -83,7 +87,7 @@ const Navbar = () => {
                   className='block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 hover:text-black hover:bg-white transition-all'
                   aria-current='page'
                   onClick={() => setOpen((prev) => !prev)}
-                >
+                  >
                   Cuenta
                 </Link>
 
@@ -99,6 +103,7 @@ const Navbar = () => {
             </ul>
           </div>
         </button>
+        </div>
       </div>
     </nav>
   );

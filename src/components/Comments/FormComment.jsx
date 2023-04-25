@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import TextareaAutosize from 'react-textarea-autosize';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import {  addDoc, collection } from 'firebase/firestore';
-import moment from "moment";
-import { db } from '../../firebase'
+
 
 
 
@@ -36,7 +34,8 @@ const FormComment = ({ user, postId,createComment,updateComment,isEditing, comme
     // Set comment text value  to commenty input when a comment is editing-
     useEffect(()=>{
         formComment.setFieldValue("content",commentEditing.content);
-    },[commentEditing]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
 
     const changedTextArea = (e) => {
         let text = e.target.value;

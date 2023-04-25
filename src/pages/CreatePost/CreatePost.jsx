@@ -9,7 +9,6 @@ import { doc, collection, serverTimestamp, setDoc } from 'firebase/firestore';
 import { FiUpload } from 'react-icons/fi';
 import moment from 'moment/moment';
 import { getStorage, ref, uploadString, getDownloadURL } from "firebase/storage";
-import Navbar from '../../components/Navbar/Navbar';
 import { MdAttachMoney } from 'react-icons/md'
 import { UserData } from '../../Context/UserContext';
 
@@ -48,6 +47,7 @@ const CreatePost = () => {
                 time: serverTimestamp(),
                 contact: user?.email,
                 name: user?.name,
+                ownerid: user?.uid
               })
           ).then(() =>
             navigate("/")

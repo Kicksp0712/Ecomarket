@@ -87,7 +87,7 @@ const SectionComment = ({user, postId, setCommentEditing}) => {
                                                     <p className="text-gray-600 text-sm break-all">
                                                         {comment?.content} 
                                                     </p>
-                                                    {(user?.uid === comment?.uid) && (
+                                                    {(user?.uid === comment?.ownerId) && (
                                                         <div name={`${user?.uid}_${comment?.uid}`} className='flex justify-end space-x-3'>
                                                             <a onClick={()=>{handleEditingComment(comment?.content,comment.id)}} className=' hover:text-primary cursor-pointer'>Editar</a>
                                                             <a onClick={()=>{deleteComment(comment?.id)}} className='hover:text-primary cursor-pointer'>Eliminar</a>

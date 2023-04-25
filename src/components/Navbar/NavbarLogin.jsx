@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io'
 
 function NavbarLogin() {
     let navigate = useNavigate();
