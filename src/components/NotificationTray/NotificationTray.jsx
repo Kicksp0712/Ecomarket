@@ -75,7 +75,10 @@ function NotificationTray({ user }) {
           </Badge>
         )}
         <Dropdown
-          label={<RiNotification2Fill className=" text-primary text-2xl " />}
+          label={
+            <Tooltip content="Notifcaciones" placement="bottom">
+              <RiNotification2Fill className=" text-primary text-2xl " />
+            </Tooltip>}
           inline={true}
         >
           <Dropdown.Header>Notificaciones</Dropdown.Header>
