@@ -84,7 +84,7 @@ const SectionComment = ({user, postId, setCommentEditing}) => {
                                                     }
                                                 </div>
                                                 <div className='ml-1 border rounded-md w-full p-1'>
-                                                    <a onClick={()=>navigateProfile(comment?.uid)} className="font-bold text-sm cursor-pointer">
+                                                    <a onClick={()=>navigateProfile(comment?.ownerId)} className="font-bold text-sm cursor-pointer">
 
                                                         {comment?.userName}
                                                     </a>
