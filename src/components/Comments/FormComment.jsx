@@ -27,6 +27,7 @@ const FormComment = ({ user, postId,createComment,updateComment,isEditing, comme
                 formComment.resetForm();
             }else{  
                 createComment(values.content);
+                formComment.resetForm();
             }
         }
 

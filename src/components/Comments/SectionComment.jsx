@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { db } from '../../firebase'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import { notification } from '../notifcactionToast';
 
 
 
@@ -20,10 +21,13 @@ const SectionComment = ({user, postId, setCommentEditing}) => {
         setCommentEditing({id:idComment,content:textComment});
     }
 
-    const deleteComment = (idComment) =>{
+    const deleteComment = (idComment,index) =>{
         let docRef = doc(db,`posts/${postId}/comments/${idComment}`);
         deleteDoc(docRef).then(()=>{
-            toast.success("Se eliminado el comentario",{position:"bottom-center"})
+            toast.success("Se eliminado el comentario",{position:"bottom-center"});
+            const newComments = comments.slice(0,index).concat(comments.slice(index+1));
+            setComments(newComments);
+            
         }).catch(()=>{
             toast.error("Intentalo mas tarde",{position:"bottom-center"});
         });
@@ -90,7 +94,7 @@ const SectionComment = ({user, postId, setCommentEditing}) => {
                                                     {(user?.uid === comment?.ownerId) && (
                                                         <div name={`${user?.uid}_${comment?.uid}`} className='flex justify-end space-x-3'>
                                                             <a onClick={()=>{handleEditingComment(comment?.content,comment.id)}} className=' hover:text-primary cursor-pointer'>Editar</a>
-                                                            <a onClick={()=>{deleteComment(comment?.id)}} className='hover:text-primary cursor-pointer'>Eliminar</a>
+                                                            <a onClick={()=>{deleteComment(comment?.id,i)}} className='hover:text-primary cursor-pointer'>Eliminar</a>
                                                         </div>
                                                     )}
                                                 </div>

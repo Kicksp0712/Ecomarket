@@ -19,7 +19,7 @@ import { getToken, onMessage } from "firebase/messaging";
 import { messaging } from "./firebase";
 import { useEffect } from "react";
 import { notification } from "./components/notifcactionToast";
-
+import soundpop from './audio/soundpop.mp3';
 
 function App() {
   const { userAuth } = UserAuth();
@@ -31,6 +31,9 @@ function App() {
     let title = message?.notification.title;
     let msg = message?.notification.body;
     let image = message?.notification.image;
+    //Play sound when recive notification
+    const audio = new Audio(soundpop);
+    audio.play();
     notification(title,msg,image);
   });
   }, []);

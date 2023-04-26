@@ -93,7 +93,7 @@ const Home = () => {
                   
                   {/* <SectionComment key={`coments_${i}`} postId={post?.id}/>
                   <FormComment key={`createcomment_${i}`} postId={post?.id} user={user} /> */}
-                  <ContainerComments user={user} postId={post?.id} />
+                  <ContainerComments key={post?.id} user={user} postId={post?.id} />
                 </div>
               );
             })}

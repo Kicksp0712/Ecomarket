@@ -47,7 +47,7 @@ const CreatePost = () => {
                 time: serverTimestamp(),
                 contact: user?.email,
                 name: user?.name,
-                ownerid: user?.uid
+                ownerId: user?.uid
               })
           ).then(() =>
             navigate("/")

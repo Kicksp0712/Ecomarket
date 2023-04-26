@@ -69,7 +69,7 @@ function NotificationTray({ user }) {
   return (
     <>
       <div className=" relative ">
-        {Boolean(notificationsReaded.length > 0) && (
+        {Boolean(notificationsReaded.length >=1) && (
           <Badge className="absolute top-4 left-3 " color="gray" size="xs">
             {notificationsReaded.length}
           </Badge>
@@ -84,9 +84,8 @@ function NotificationTray({ user }) {
           <Dropdown.Header>Notificaciones</Dropdown.Header>
           {notifications?.map((item, i) => {
             return (
-              <>
-                <div className=" relative ">
-                  <Dropdown.Item className={`${item?.readed ? "": " bg-gray-50"} rounded-md m-2 `}>
+                <div key={item?.notificationId} id={item?.notificationId} className=" relative ">
+                  <Dropdown.Item  className={`${item?.readed ? "": " bg-gray-50"} rounded-md m-2 `}>
                     <div
                       onClick={(e) => {
                         onClickNotification(e, i);
@@ -111,7 +110,7 @@ function NotificationTray({ user }) {
                     />
                   </Tooltip>
                 </div>
-              </>
+              
             );
           })}
         </Dropdown>
