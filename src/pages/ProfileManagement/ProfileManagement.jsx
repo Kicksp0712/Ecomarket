@@ -21,7 +21,7 @@ const ProfileManagemnt = () => {
             <div className="flex flex-col justify-center items-center h-screen">
                 <div className="w-1/4">
 
-                    <PhotoProfile user={user}/>
+                    <PhotoProfile user={user} setUserDoc={setUserDoc}/>
 
                     <button className="w-full button-custom" onClick={() => setOpenFormUser(!openFormUser)}>
                         Editar Datos

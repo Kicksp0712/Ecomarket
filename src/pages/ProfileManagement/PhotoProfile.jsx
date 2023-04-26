@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react"
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { toast } from "react-hot-toast";
-function PhotoProfile({ user }) {
+function PhotoProfile({ user, setUserDoc }) {
 
     const [photoProfile, setPhoto] = useState(user?.image ? user.image : "");
     const [enableButton,setEnableButton] = useState(false);
@@ -30,6 +30,7 @@ function PhotoProfile({ user }) {
             image: value
         } ).then(() => {
             toast.success("Se ha actualizado la foto");
+            setUserDoc({...user,image:value});
         }).catch(()=>{
             toast.error("Error al cargar la imagen");
         })
