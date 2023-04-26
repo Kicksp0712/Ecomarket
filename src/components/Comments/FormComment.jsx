@@ -35,8 +35,7 @@ const FormComment = ({ user, postId,createComment,updateComment,isEditing, comme
     // Set comment text value  to commenty input when a comment is editing-
     useEffect(()=>{
         formComment.setFieldValue("content",commentEditing.content);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
+    },[commentEditing]);
 
     const changedTextArea = (e) => {
         let text = e.target.value;
