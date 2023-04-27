@@ -25,6 +25,9 @@ const FormUser = ({ openModal,user,setUserDoc}) => {
 
 
     const onSubmit = async (values) => {
+        if((user?.name === values?.name) && (user?.phone === values?.phone)){
+            return;
+        }
         const docUserRef = doc(db, 'users', user?.uid);
         await updateDoc(docUserRef,values).then(()  => {
             setUserDoc({...user,...values});
@@ -89,7 +92,7 @@ const FormUser = ({ openModal,user,setUserDoc}) => {
                                     </div>
                                 )}
                                 <div>
-                                    <input type="submit" className="w-full button-custom" />
+                                    <input type="submit" className="w-full button-custom cursor-pointer" />
                                 </div>
                             </div>
                         </form>
