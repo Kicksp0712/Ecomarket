@@ -30,9 +30,9 @@ const ProfileManagemnt = () => {
                     <button className="w-full button-custom" onClick={() => setOpenFormChangP(!openFormChangeP)}>
                         Cambiar Contraseña
                     </button>
-                    <button className="w-full button-custom">
+                    {/* <button className="w-full button-custom">
                         Cambiar Datos Tarjeta Bancaria
-                    </button>
+                    </button> */}
                     <button className="w-full button-custom-alert" onClick={()=> setOpenDeleteConfirmation(!openDeleteConfirmation)}>
                         Eliminar Cuenta
                     </button>

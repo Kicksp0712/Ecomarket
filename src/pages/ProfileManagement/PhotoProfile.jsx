@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react"
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { toast } from "react-hot-toast";
+import {BiUpload} from "react-icons/bi"
 function PhotoProfile({ user, setUserDoc }) {
 
     const [photoProfile, setPhoto] = useState(user?.image ? user.image : "");
@@ -54,7 +55,7 @@ function PhotoProfile({ user, setUserDoc }) {
                 </label>
                 {enableButton && (
                 <button className="button-custom"  onClick={()=>uploadPhoto(photoProfile)}>
-                    Subir imagen
+                    <BiUpload className=" inline-block mx-2 " />Subir imagen
                 </button>
                 )}
             </div>

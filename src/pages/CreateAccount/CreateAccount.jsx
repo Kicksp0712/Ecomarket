@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import { auth, db } from '../../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
-import { doc, setDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, query, setDoc, where } from 'firebase/firestore';
 import { FiUpload } from 'react-icons/fi';
 import { UserData } from '../../Context/UserContext';
 
@@ -21,6 +21,9 @@ const CreateAccount = () => {
   const toggleShowPass = () => {
     setShowPass(!showPass);
   };
+
+  
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -42,8 +45,11 @@ const CreateAccount = () => {
         .min(8, 'Contraseña debe tener al menos 8 caracteres!')
         .required("La contraseña es obligatoria!"),
       image: yup.string().required('La imagen es obligatoria!'),
+      //cardnumber: yup.string().matches(/^(\d{4}-){3}\d{4}$|^\d{16}$/gm, 'Numero de tarjeta invalida')
     }),
-    onSubmit: async (values) => {
+    onSubmit:  (values) => {
+
+     
       createUserWithEmailAndPassword(auth, values.email, values.password)
         .then(async (res) => {
           await setDoc(doc(db, 'users', res.user.uid), {

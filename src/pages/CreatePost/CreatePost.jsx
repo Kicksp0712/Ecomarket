@@ -49,8 +49,10 @@ const CreatePost = () => {
                 name: user?.name,
                 ownerId: user?.uid
               })
-          ).then(() =>
+          ).then(() =>{
+            toast.success("Se ha publicado el producto",{position:"bottom-right"});
             navigate("/")
+          }
           ).catch(()=>{
             toast.error("No se pudo crear la publicacion");
           })

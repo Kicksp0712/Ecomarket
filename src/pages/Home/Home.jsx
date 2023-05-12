@@ -91,8 +91,7 @@ const Home = () => {
                     {post?.description}
                   </p>
                   
-                  {/* <SectionComment key={`coments_${i}`} postId={post?.id}/>
-                  <FormComment key={`createcomment_${i}`} postId={post?.id} user={user} /> */}
+               
                   <ContainerComments key={post?.id} user={user} postId={post?.id} />
                 </div>
               );
