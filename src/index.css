@@ -37,8 +37,20 @@ body::-webkit-scrollbar-track {
   border-radius: 10px;  
 }
 
+.container-center-item {
+  display: grid;
+  place-items: center;
+  height: 100vh; /* Opcional: establece la altura según tus necesidades */
+}
+
+
+
 .button-custom{
   @apply border hover:border-black bg-primary text-white font-bold py-2 px-4 rounded my-2 w-full hover:bg-lime-800 duration-100;
+}
+.button-custom:disabled{
+  border-style: hidden;
+  @apply bg-gray-500 
 }
 .btn-comment{
   width: 170px;

@@ -70,7 +70,7 @@ const SectionComment = ({user, postId, setCommentEditing}) => {
                                     {/* Render the list of comments */}
                                     {comments?.map((comment, i) => {
                                         return (
-                                            <div key={i} className='flex flex-flow-row my-2 '>
+                                            <div id={comment.id} key={i} className='flex flex-flow-row my-2 '>
                                                 <div className=" gap-3 items-center">
                                                     {comment.userImage ? (
 

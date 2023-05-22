@@ -1,0 +1,48 @@
+
+
+
+.card-post {
+
+    border-width: 1px;
+    border-radius: 10px;
+    @apply drop-shadow-lg shadow-xl p-3 flex flex-col space-y-1 items-center text-center
+}
+
+.card-post-diseable {
+    color: rgb(187, 187, 187);
+    border-width: 1px;
+    border-radius: 10px;
+    @apply p-3 flex flex-col space-y-1 items-center text-center 
+}
+
+.card-post p{
+    @apply text-lg;
+}
+
+.card-post img{
+    @apply mx-auto absolute top-1;
+
+}
+
+.card-post-image{
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 50%;
+    position: relative;
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    z-index: -1;
+    display: inline-block;
+}
+.clip-text{
+    overflow: hidden;
+    height: 1.5rem;
+
+}
+
+.grid-post{
+    @apply grid gap-2
+
+}

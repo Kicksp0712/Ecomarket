@@ -22,7 +22,7 @@ const FormComment = ({
         .string()
         .required("Comentario vacio")
         .min(5, "Escribe un comentario mas detallado")
-        .max(1000, "Solo se pueden escribir 1000 caracteres"),
+        .max(200, "Solo se pueden escribir 1000 caracteres"),
     }),
     onSubmit: (values) => {
       if (commentEditing.id && commentEditing.content) {
@@ -56,7 +56,7 @@ const FormComment = ({
           placeholder="Escribre algo"
           value={formComment.values.content}
           onBlur={formComment.handleBlur}
-          maxLength="1000"
+          maxLength="200"
         />
         {formComment.touched.content && Boolean(formComment.errors.content) && (
           <div className="font-semibold text-primary">

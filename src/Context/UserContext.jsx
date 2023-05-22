@@ -9,13 +9,14 @@ function UserContext({ children }) {
   const { userAuth } = UserAuth();
 
   const [userDoc, setUserDoc] = useState({});
-
+  const [loadingData,setLoadingData] = useState(true)
   useEffect(() => {
     const docGet = async () => {
       const docRef = doc(db, "users", userAuth.uid);
       const docSnap = await getDoc(docRef);
       const data = docSnap.data();
       setUserDoc({ ...userAuth, ...data });
+      setLoadingData(false);
     };
     if (userAuth?.uid) {
       docGet();
@@ -34,7 +35,7 @@ function UserContext({ children }) {
   }, [userAuth]);
 
   return (
-    <UserDataContext.Provider value={{ user: userDoc, setUserDoc }}>
+    <UserDataContext.Provider value={{ user: userDoc, setUserDoc,loadingData }}>
       {children}
     </UserDataContext.Provider>
   );

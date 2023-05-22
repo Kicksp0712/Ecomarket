@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import { collection, deleteDoc, doc, onSnapshot, orderBy, query, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 function NotificationTray({ user }) {
   const [notifications, setNotifications] = useState([]);
   const [notificationsReaded, setNotificationsReaded] = useState([]);
@@ -27,6 +29,8 @@ function NotificationTray({ user }) {
       docNotifications();
     }
   }, [user]);
+  
+  const navigate = useNavigate();
 
   const updatedNotificationReaded = async (index)=>{
     if(index === null || index === undefined){ console.error("Index undefined or null");return; }
@@ -51,6 +55,7 @@ function NotificationTray({ user }) {
     updatedNotificationReaded(index);
     notifications[index] = notItem;
     setNotifications([...notifications]);
+    navigate( `/post/${notItem.data.postId}`,);
     
   };
 
