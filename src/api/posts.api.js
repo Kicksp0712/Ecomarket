@@ -1,7 +1,6 @@
 import { collection, deleteDoc, doc, getDoc, onSnapshot, orderBy, query, updateDoc, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { RiAlarmWarningFill } from "react-icons/ri";
 
 
 
@@ -13,7 +12,8 @@ export function PostsRepo(){
 
     useEffect(() => {
         let LogsRef = collection(db, 'posts');
-        const q = query(LogsRef, orderBy('time', 'desc'));
+        const q = query(LogsRef, orderBy('time', 'desc'),
+        where("state","==",true));
         onSnapshot(q, (querySnapshot) => {
           let list = [];
           querySnapshot.forEach((document) => {
@@ -40,13 +40,14 @@ export function PostsUserRepo({uid}){
 
     const [posts,setPosts] = useState([]);
     const [loading,setLoading] = useState(true);
-    const [empty, setEmpty] = useState(false);
+    const [empty, setEmpty] = useState(true);
 
     useEffect(() => {
 
         const req = ()=>{
             let LogsRef = collection(db, 'posts');
-        const q = query(LogsRef, orderBy('time', 'desc'),where("ownerId","==",uid));
+        const q = query(LogsRef, orderBy('time', 'desc'),
+        where("ownerId","==",uid));
         onSnapshot(q, (querySnapshot) => {
           let list = [];
           querySnapshot.forEach((document) => {
@@ -54,9 +55,8 @@ export function PostsUserRepo({uid}){
             
             list.push(data)}
             );
-            if(!list){
-                setEmpty(true);
-            }else{
+            if(list.length > 0){
+                setEmpty(false);
                 setPosts(list);
             }
             if(loading){

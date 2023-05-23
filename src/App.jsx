@@ -23,6 +23,7 @@ import soundpop from './audio/soundpop.mp3';
 import { Post } from "./components/Posts/Posts";
 import { PostPage } from "./pages/Post/PostPage";
 import { ManagePostsPage } from "./pages/ManagePosts/ManagePosts";
+import { BuyPage } from "./pages/BuyItem/BuyPage";
 
 function App() {
   const { userAuth } = UserAuth();
@@ -85,11 +86,18 @@ function App() {
               }
             />
             <Route
+              path="/buy-item/:id"
+              element={
+                <ProtectedRoute>
+                  <BuyPage/>
+                </ProtectedRoute>
+              }
+              />
+            <Route
               path="/manage-posts"
               element={
                 <ProtectedRoute>
                     <ManagePostsPage/>
-           
                 </ProtectedRoute>
               }
             />
