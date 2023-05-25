@@ -24,6 +24,8 @@ import { Post } from "./components/Posts/Posts";
 import { PostPage } from "./pages/Post/PostPage";
 import { ManagePostsPage } from "./pages/ManagePosts/ManagePosts";
 import { BuyPage } from "./pages/BuyItem/BuyPage";
+import { SalesPage } from "./pages/SalesPage/SalesPage";
+import { PurchasesPage } from "./pages/PurchaseOrdersPage/PurchasesPage";
 
 function App() {
   const { userAuth } = UserAuth();
@@ -90,6 +92,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <BuyPage/>
+                </ProtectedRoute>
+              }
+              />
+               <Route
+              path="/sales"
+              element={
+                <ProtectedRoute>
+                  <SalesPage/>
+                </ProtectedRoute>
+              }
+              />
+            <Route
+              path="/purchases"
+              element={
+                <ProtectedRoute>
+                  <PurchasesPage/>
                 </ProtectedRoute>
               }
               />

@@ -39,8 +39,7 @@ export function ManagePostsPage() {
 export function ListPostOwn({ user }) {
   const [openOpenModal, setOpenModal] = useState(false);
   const [selectPost, setSelectPost] = useState({});
-  const { empty, posts, loading, setEmpty, setPosts, setLoading } =
-    PostsUserRepo({ uid: user.uid });
+  const { empty, posts, loading, setEmpty, setPosts, setLoading } =PostsUserRepo({ uid: user.uid });
   const handleDelete = (id) => {
     deletePost(id)
       .then(() => {

@@ -2,7 +2,7 @@ import { signOut } from "firebase/auth";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { IoMdArrowRoundBack,IoIosLogOut } from "react-icons/io";
 import { UserData } from "../../Context/UserContext";
 import { NotificationTray } from "../NotificationTray/NotificationTray";
 import { Tooltip } from "flowbite-react";
@@ -38,7 +38,7 @@ const Navbar = () => {
         </Link>
 
         <div className="flex flex-row items-center space-x-5">
-            <NotificationTray user={user}  />
+          <NotificationTray user={user}  />
 
           <button
             data-collapse-toggle="navbar-default"
@@ -65,7 +65,7 @@ const Navbar = () => {
               }`}
               id="navbar-default"
             >
-              <ul className="flex flex-col m-1 p-4 mt-4 border border-gray-100 space-y-2 rounded-lg bg-primary font-bold text-white md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+              <ul className="flex flex-col  m-1 p-4 mt-4 border border-gray-100 space-y-2 rounded-lg bg-primary font-bold text-white md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                 <li>
                   <Link
                     to={`/user/${user?.uid}`}
@@ -75,6 +75,7 @@ const Navbar = () => {
                     {user?.name}
                   </Link>
                 </li>
+                <hr></hr>
                 <li>
                   <Link
                     to="/"
@@ -118,16 +119,34 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <div
-                    onClick={logout}
-                    className="block cursor-pointer py-2 pl-3 pr-4 rounded hover:text-black hover:bg-white transition-all md:hover:bg-transparent md:border-0  md:p-0"
+                  <Link
+                    to="/sales"
+                    className="block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 hover:text-black hover:bg-white transition-all"
+                    aria-current="page"
+                    onClick={() => setOpen((prev) => !prev)}
                   >
-                    Salir
-                  </div>
+                    Ventas
+                  </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/purchases"
+                    className="block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 hover:text-black hover:bg-white transition-all"
+                    aria-current="page"
+                    onClick={() => setOpen((prev) => !prev)}
+                  >
+                    Compras
+                  </Link>
+                </li>
+               
               </ul>
             </div>
           </button>
+          
+          <Tooltip placement="bottom" arrow={false} content="Cerrar sesion">
+
+          <IoIosLogOut onClick={logout} className="  text-primary text-2xl font-bold cursor-pointer hover:text-lime-900 transition-all duration-700"/>
+          </Tooltip>
         </div>
       </div>
     </nav>
