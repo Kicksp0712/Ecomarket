@@ -1,6 +1,7 @@
 import { Query, QueryConstraint, addDoc, collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { useEffect, useState } from "react";
+import { data } from "autoprefixer";
 
 
 
@@ -19,22 +20,26 @@ export  function Purchases({uid,state,filter}){
                 if(snapShot.size <1) {setEmpty(true);setLoading(false);return};
 
                 const mapPurchase = new Map() 
+                const listIdsPost = []
                  snapShot.forEach((doc)=>{  
-                    mapPurchase.set(doc.data().item.id,{id:doc.id,...doc.data()})
+                    const purchase = {id:doc.id,...doc.data()}
+                    listIdsPost.push({purchase:purchase.id, item:purchase.item.id});
+                    
+                    mapPurchase.set(purchase.id,{...purchase,id:purchase.id})
                  })
                 
                  // Generator to get each document post of a purchase.
                  async function* fetchPostsDoc(ids){
                     try{
-
-                        for ( let id of ids){
-                            const ref = doc(db,`/posts/${id}`);
+                        
+                        for ( let value of ids){
+                            const ref = doc(db,`/posts/${value.item}`);
                             const snap = await getDoc(ref);
-                            const data = snap.data()
-                            yield {id:snap.id,description:data.description,image:data.images[0]}
+                            const data = snap.data();
+                            yield {purchases:value.purchase, post:{id:data.id,description:data.description,image:data.images[0],address:data.address}}
                         }
-                    } finally{
-                        console.log("Called finally");
+                    } catch(e){
+                        console.error("Error to fetch post");
                     }
                  }
 
@@ -42,8 +47,9 @@ export  function Purchases({uid,state,filter}){
                  (async () =>{
 
                     try{
-                        for await (const post of fetchPostsDoc(mapPurchase.keys())){
-                            mapPurchase.set(post.id,{...mapPurchase.get(post.id),post:{...post}})
+                        for await (const value of fetchPostsDoc(listIdsPost)){
+                            
+                            mapPurchase.set(value.purchases,{...mapPurchase.get(value.purchases),post:{...value.post}})
                          }
                          setPurchases(Array.from(mapPurchase.values()));
                          setLoading(false);
@@ -130,9 +136,11 @@ export  function Sales({uid,state,filter}){
 
 
 export async function buyItem(order){
+    order.item = doc(db, "posts",order.item);
+    order.buyer = doc(db,"users",order.buyer);
+    order.seller = doc(db,"users",order.seller);
 
-    const refDoc = doc(db,"post-orders");
-
+    const refDoc = collection(db,"purchase-orders");
     return await  addDoc(refDoc,order);
 
 }

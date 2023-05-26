@@ -1,4 +1,4 @@
-import { collection, deleteDoc, doc, getDoc, onSnapshot, orderBy, query, updateDoc, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, orderBy, query, updateDoc, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
 
@@ -100,4 +100,27 @@ export async function updateStatePost(id,state){
     const ref = doc(db,"posts",id);
     return await updateDoc(ref,{state:state});
 
+}
+
+
+export async function PostIsBuying(idPost){
+    try{
+        const refPurchase = collection(db,"purchase-orders");
+        const refPost = doc(db,"posts",idPost);
+        const q = query(refPurchase,where("state","!=","success"),where("item","==",refPost));
+        const snap = await getDocs(q);
+        
+        return new Promise((resolve,reject)=>{
+            if(snap.size>0){
+                resolve(true)
+            }else{
+                resolve(false);
+            }
+        })
+    }catch(e){
+        return new Promise((_,reject) => {
+            reject(`Error to get validation ${e.message}`);
+        })
+    }
+    
 }

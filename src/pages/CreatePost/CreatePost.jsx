@@ -27,7 +27,7 @@ const CreatePost = () => {
       images: [],
       description: "",
       address: "",
-      inventory: 0,
+      inventory: 1,
     },
     validationSchema: yup.object({
       description: yup

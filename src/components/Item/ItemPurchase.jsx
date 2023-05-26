@@ -13,7 +13,7 @@ export function ItemPurchase({ itemSale }) {
         <div className="flex flex-col space-y-3">
           <div>
             Fecha:{" "}
-            {moment.unix(datetime.seconds).format("DD/MM/YY [Hora]: HH:mm:ss")}
+            {moment.unix(datetime?.seconds).format("DD/MM/YY [Hora]: HH:mm:ss")}
           </div>
 
           <div>Cantidad: {amount}</div>
@@ -24,7 +24,7 @@ export function ItemPurchase({ itemSale }) {
           </div>
         </div>
 
-        <div className="flex flex-col justify-around ">
+        <div className="flex flex-col items-center justify-around ">
           <Link to={`/post/${item?.id}`} className="font-bold">
             {post?.description}
           </Link>
@@ -34,9 +34,8 @@ export function ItemPurchase({ itemSale }) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center px-3 gap-2">
-        
-
+      <div className="flex flex-col justify-center px-3 ">
+ 
         <div className="text-center" >
           {state === "pending" && (
             <span className="badge-warning">Procesando pago</span>

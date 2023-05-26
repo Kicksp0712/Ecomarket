@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  PostIsBuying,
   PostsUserRepo,
   deletePost,
   updatePost,
@@ -40,14 +41,22 @@ export function ListPostOwn({ user }) {
   const [openOpenModal, setOpenModal] = useState(false);
   const [selectPost, setSelectPost] = useState({});
   const { empty, posts, loading, setEmpty, setPosts, setLoading } =PostsUserRepo({ uid: user.uid });
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
+    
+    const isBuying = await PostIsBuying(id);
+    
+    if(isBuying){
+      toast.error("No es posible eliminar este elemento, solo desactivar su publicacion");
+      return;
+    }
     deletePost(id)
-      .then(() => {
-        toast.success("Se ha eliminado el post");
-      })
-      .catch((e) => {
-        toast.error(`Error eliminacion: ${e.message}`);
-      });
+    .then(() => {
+      toast.success("Se ha eliminado el post");
+    })
+    .catch((e) => {
+      toast.error(`Error eliminacion: ${e.message}`);
+    });
+   
   };
   const hanldeUpdateInventory = (post) => {
     setSelectPost(post);
@@ -114,7 +123,7 @@ export function ListPostOwn({ user }) {
       {(!loading || !empty) && (
          <div
          id="container-post"
-         className="flex flex-row flex-wrap justify-center  gap-2 mx-5 my-20 "
+         className="flex flex-row flex-wrap justify-center  gap-5 mx-5 my-20 "
        >
          {posts.map((post, index) => (
            <div key={index} id={post.id}>
