@@ -33,7 +33,7 @@ export  function PurchasesPage(){
           <div className="mx-[25%] flex flex-col items-center space-y-10 my-20 ">
             {purchases.map((sale, index) => (
               <div key={index}>
-                <ItemPurchase itemSale={sale}/>
+                <ItemPurchase itemPurchase={sale}/>
               </div>
             ))}
           </div>

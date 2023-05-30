@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import moment from "moment/moment";
 import { Badge, Tooltip } from "flowbite-react";
 import { FaMapMarkerAlt } from "react-icons/fa";
-export function ItemPurchase({ itemSale }) {
-  const { item, amount, total, buyer, datetime, post, state, method_pay } =
-    itemSale;
+export function ItemPurchase({ itemPurchase }) {
+  const { item, amount, total, buyer, datetime, post, state, method_pay, payment } =
+  itemPurchase;
 
   return (
     <div className="border drop-shadow-2xl shadow-2xl rounded-lg   p-5">
@@ -37,11 +37,11 @@ export function ItemPurchase({ itemSale }) {
       <div className="flex flex-col justify-center px-3 ">
  
         <div className="text-center" >
-          {state === "pending" && (
-            <span className="badge-warning">Procesando pago</span>
+          {payment?.status === "approved" && (
+            <span className="badge-success">Aprovado</span>
           )}
-          {state === "fail" && <span className="badge-fail">Fallo Pago</span>}
-          {state === "success" && <span className="badge-success">Pagado</span>}
+          {payment?.status === "rejected" && <span className="badge-fail">Pago rechazado</span>}
+          {(payment?.status === "in_proccess" || Boolean(!payment?.status)) && <span className="badge-warning">En proceso de pago</span>}
         </div>
         <Tooltip
           content={post?.address ? post?.address : "Sin direccion"}

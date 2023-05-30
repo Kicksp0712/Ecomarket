@@ -93,13 +93,16 @@ function NotificationTray({ user }) {
                   <Dropdown.Item  className={`${item?.readed ? "": " bg-gray-50"} rounded-md m-2 `}>
                     <div
                       onClick={(e) => {
+                        if(item.notification.type === "order"){
+                          return;
+                        }
                         onClickNotification(e, i);
                       }}
                     >
                       <p className=" min-w-[300px] font-semibold my-1">
-                        {item.notifcation?.title}
+                        {item.notification?.title}
                       </p>
-                      <span>{item.notifcation?.message}</span>
+                      <span>{item.notification?.message}</span>
                     </div>
                   </Dropdown.Item>
                   <Tooltip

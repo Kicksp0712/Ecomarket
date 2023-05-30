@@ -2,6 +2,7 @@ import { Query, QueryConstraint, addDoc, collection, doc, getDoc, getDocs, onSna
 import { db } from "../firebase";
 import { useEffect, useState } from "react";
 import { data } from "autoprefixer";
+import axios from "axios";
 
 
 
@@ -136,13 +137,19 @@ export  function Sales({uid,state,filter}){
 
 
 export async function buyItem(order){
-    order.item = doc(db, "posts",order.item);
-    order.buyer = doc(db,"users",order.buyer);
-    order.seller = doc(db,"users",order.seller);
+    const docOrder = {...order}
+    docOrder.item = doc(db, "posts",order.item);
+    docOrder.buyer = doc(db,"users",order.buyer);
+    docOrder.seller = doc(db,"users",order.seller);
 
     const refDoc = collection(db,"purchase-orders");
-    return await  addDoc(refDoc,order);
+    return await  addDoc(refDoc,docOrder);
 
+}
+
+export async function  createOrder(order){
+    const resp = await axios.post(`https://${window.env.API_URL}/api/v1/order`,order);
+   return new Promise((resolve,reject) => resolve(resp.data.init_point))
 }
 
 

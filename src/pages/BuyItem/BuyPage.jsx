@@ -8,16 +8,18 @@ import { UserData } from "../../Context/UserContext";
 import { ErrorMessage, useFormik } from "formik";
 import * as yup from "yup";
 import moment from "moment/moment";
-import { buyItem } from "../../api/purchase-orders";
+import { buyItem, createOrder } from "../../api/purchase-orders";
 import { toast } from "react-hot-toast";
 import { serverTimestamp } from "firebase/firestore";
+import { Wallet } from "@mercadopago/sdk-react";
+import { Payment } from "../../components/Payment/Payment";
 export function BuyPage() {
   const params = useParams();
   const { user } = UserData();
 
   const [post, setPost] = useState({});
   const [loading, setLoading] = useState(true);
-  
+  const [orderCreated, setOrder] = useState("");
   const order = useFormik({
     initialValues: { amount: 1, total: post.precio },
     validationSchema: yup.object({
@@ -30,26 +32,41 @@ export function BuyPage() {
     onSubmit: (data) => {
       const order_item = {
         amount: data.amount,
-        item: post.id,
+        item: `${post.id}`,
+        description: post.description,
+        image: post.images[0],
+        precio: post.precio,
         method_pay: "Card_Debit",
         datetime: serverTimestamp(),
         buyer: user.uid,
         seller: post.ownerId,
         total: data.total,
-        state: ""
+        state: "",
       };
-      buyItem(order_item).then(()=>{
-        toast.success("Se ha solictado su compra");
-      }).catch((e)=>{
-        toast.error("Error al realizar su compra");
-        console.error(e.message);
-      })
+      
+      buyItem(order_item)
+        .then((docOrder) => {
+          const orderData = {id:docOrder.id,...order_item}
+          toast.success("Se ha solictado el pago ");
+          createOrder(orderData).then((url) => {
+            window.location.replace(url)
+          });
+
+          
+        })
+        .catch((e) => {
+          toast.error("Error al realizar su compra");
+          console.error(e.message);
+        });
     },
   });
 
-  useEffect(()=>{
-    order.setFieldValue("total",(order.values.amount*post.precio ?? post.precio));
-  },[order.values.amount, post.precio])
+  useEffect(() => {
+    order.setFieldValue(
+      "total",
+      order.values.amount * post.precio ?? post.precio
+    );
+  }, [order.values.amount, post.precio]);
 
   useEffect(() => {
     const getDocument = async () => {
@@ -90,7 +107,9 @@ export function BuyPage() {
                     className="rounded-lg w-full "
                     placeholder="Cantidad"
                     value={order.values.amount}
-                    onChange={(e)=>{order.handleChange(e)}}
+                    onChange={(e) => {
+                      order.handleChange(e);
+                    }}
                   />
                   {order.errors.amount && order.touched.amount && (
                     <div className="text-primary">{order.errors.amount}</div>
@@ -100,9 +119,12 @@ export function BuyPage() {
                     type="submit"
                     className="button-custom drop-shadow-2xl shadow-2xl"
                   >
-                    Comprar $ {order.values.total}
+                    Solicitar pago $ {order.values.total}
                   </button>
+                  
                 </form>
+
+                {orderCreated && (<Payment preferenceId={orderCreated} / >)}
               </>
             )}
           </>
