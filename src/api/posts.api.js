@@ -124,3 +124,10 @@ export async function PostIsBuying(idPost){
     }
     
 }
+
+export  async  function thereInventoryPost(idPost,quantity){
+    const data = (await getDoc(doc(db,"posts",idPost))).data();
+    return new Promise((resolve,reject)=>{
+        resolve(data.inventory >= quantity);
+    });
+}

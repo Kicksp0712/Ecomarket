@@ -1,8 +1,9 @@
-import { Query, QueryConstraint, addDoc, collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { Query, QueryConstraint, addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { useEffect, useState } from "react";
 import { data } from "autoprefixer";
 import axios from "axios";
+import { ConnectionErrorApi, ErrorInternalServer } from "../utils/Errors";
 
 
 
@@ -148,8 +149,26 @@ export async function buyItem(order){
 }
 
 export async function  createOrder(order){
-    const resp = await axios.post(`https://${window.env.API_URL}/api/v1/order`,order);
-   return new Promise((resolve,reject) => resolve(resp.data.init_point))
+        try{
+            const resp = await axios
+            .post(`https://us-central1-ecomarket-2023.cloudfunctions.net/api/v1/order`,order);
+            return resp.data.init_point;
+            
+        }catch(e){
+            if(e.response){
+                throw new ErrorInternalServer("Error al solicitar el pago");
+            }else if (e.request){
+                throw new ConnectionErrorApi("Error al conectar con el servidor")
+            }
+        }
+
 }
+
+export async function deletePurchaseOrder(idOrder){
+    return await deleteDoc(doc(db,"purchase-orders",idOrder));
+}
+
+
+
 
 

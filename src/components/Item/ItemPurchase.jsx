@@ -41,7 +41,7 @@ export function ItemPurchase({ itemPurchase }) {
             <span className="badge-success">Aprovado</span>
           )}
           {payment?.status === "rejected" && <span className="badge-fail">Pago rechazado</span>}
-          {(payment?.status === "in_proccess" || Boolean(!payment?.status)) && <span className="badge-warning">En proceso de pago</span>}
+          {(payment?.status === "in_process" || Boolean(!payment?.status)) && <span className="badge-warning">En proceso de pago</span>}
         </div>
         <Tooltip
           content={post?.address ? post?.address : "Sin direccion"}

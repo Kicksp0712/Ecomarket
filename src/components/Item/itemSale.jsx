@@ -3,7 +3,17 @@ import { Link } from "react-router-dom";
 import moment from "moment/moment";
 import { Badge } from "flowbite-react";
 export function ItemSale({ itemSale }) {
-  const { item, amount, total, buyer, datetime, post, state,method_pay } = itemSale;
+  const {
+    item,
+    amount,
+    total,
+    buyer,
+    datetime,
+    post,
+    state,
+    method_pay,
+    payment,
+  } = itemSale;
 
   return (
     <div className="border drop-shadow-2xl shadow-2xl rounded-lg   p-5">
@@ -16,7 +26,10 @@ export function ItemSale({ itemSale }) {
 
           <div>Cantidad: {amount}</div>
           <div>Total: ${total}</div>
-          <div>Metodo de pago: {method_pay === "Cash" && "Efectivo"} {method_pay === "Card_Debit" && "Tarjeta de debito"} </div>
+          <div>
+            Metodo de pago: {method_pay === "Cash" && "Efectivo"}{" "}
+            {method_pay === "Card_Debit" && "Tarjeta de debito"}{" "}
+          </div>
         </div>
 
         <div className="flex flex-col justify-around ">
@@ -28,12 +41,17 @@ export function ItemSale({ itemSale }) {
             <img src={post?.image} alt="" />
           </div>
         </div>
-        
       </div>
       <div className="flex justify-center px-3">
-        {state === "pending" && (<span className="badge-warning" >Esperando pago</span>)}
-        {state === "fail" && (<span className="badge-fail">Fallo Pago</span>)}
-        {state === "success" && (<span className="badge-success" >Pagado</span>)}
+        {payment?.status === "approved" && (
+          <span className="badge-success">Aprovado</span>
+        )}
+        {payment?.status === "rejected" && (
+          <span className="badge-fail">Pago rechazado</span>
+        )}
+        {(payment?.status === "in_process" || Boolean(!payment?.status)) && (
+          <span className="badge-warning">En proceso de pago</span>
+        )}
       </div>
     </div>
   );
