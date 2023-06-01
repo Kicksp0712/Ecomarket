@@ -131,3 +131,21 @@ export  async  function thereInventoryPost(idPost,quantity){
         resolve(data.inventory >= quantity);
     });
 }
+
+
+export async function getFavoritesPost(listFavorites){
+ 
+    async function* getFavorites(ids){
+        for(let id of ids ){
+            const ref = doc(db,"posts",id);
+            const docPost = await getDoc(ref);
+            yield {id:docPost.id,...docPost.data()};
+        }
+    }
+    const list = []
+    for await( const post of getFavorites(listFavorites) ){
+        list.push(post);
+    }
+    return list;
+
+}

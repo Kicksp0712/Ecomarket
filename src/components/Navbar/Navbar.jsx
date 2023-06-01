@@ -138,6 +138,16 @@ const Navbar = () => {
                     Compras
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/favorites"
+                    className="block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 hover:text-black hover:bg-white transition-all"
+                    aria-current="page"
+                    onClick={() => setOpen((prev) => !prev)}
+                  >
+                    Favoritos
+                  </Link>
+                </li>
                
               </ul>
             </div>

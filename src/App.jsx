@@ -19,32 +19,29 @@ import { getToken, onMessage } from "firebase/messaging";
 import { messaging } from "./firebase";
 import { useEffect } from "react";
 import { notification } from "./components/notifcactionToast";
-import soundpop from './audio/soundpop.mp3';
+import soundpop from "./audio/soundpop.mp3";
 import { Post } from "./components/Posts/Posts";
 import { PostPage } from "./pages/Post/PostPage";
 import { ManagePostsPage } from "./pages/ManagePosts/ManagePosts";
 import { BuyPage } from "./pages/BuyItem/BuyPage";
 import { SalesPage } from "./pages/SalesPage/SalesPage";
 import { PurchasesPage } from "./pages/PurchaseOrdersPage/PurchasesPage";
+import { FavoritePage } from "./pages/Favorite/FavoritePage";
 
 function App() {
   const { userAuth } = UserAuth();
 
-  
- 
- useEffect(()=>{
-  onMessage(messaging,(message)=>{
-    let title = message?.notification.title;
-    let msg = message?.notification.body;
-    let image = message?.notification.image;
-    //Play sound when recive notification
-    const audio = new Audio(soundpop);
-    audio.play();
-    notification(title,msg,image);
-  });
+  useEffect(() => {
+    onMessage(messaging, (message) => {
+      let title = message?.notification.title;
+      let msg = message?.notification.body;
+      let image = message?.notification.image;
+      //Play sound when recive notification
+      const audio = new Audio(soundpop);
+      audio.play();
+      notification(title, msg, image);
+    });
   }, []);
-
-
 
   return (
     <>
@@ -83,7 +80,7 @@ function App() {
               path="/post/:id"
               element={
                 <ProtectedRoute>
-                  <PostPage/>
+                  <PostPage />
                 </ProtectedRoute>
               }
             />
@@ -91,35 +88,43 @@ function App() {
               path="/buy-item/:id"
               element={
                 <ProtectedRoute>
-                  <BuyPage/>
+                  <BuyPage />
                 </ProtectedRoute>
               }
-              />
-               <Route
+            />
+            <Route
               path="/sales"
               element={
                 <ProtectedRoute>
-                  <SalesPage/>
+                  <SalesPage />
                 </ProtectedRoute>
               }
-              />
+            />
             <Route
               path="/purchases"
               element={
                 <ProtectedRoute>
-                  <PurchasesPage/>
+                  <PurchasesPage />
                 </ProtectedRoute>
               }
-              />
+            />
             <Route
               path="/manage-posts"
               element={
                 <ProtectedRoute>
-                    <ManagePostsPage/>
+                  <ManagePostsPage />
                 </ProtectedRoute>
               }
             />
 
+            <Route
+              path="/favorites"
+              element={
+                <ProtectedRoute>
+                  <FavoritePage />
+                </ProtectedRoute>
+              }
+            />
 
             <Route path="/user/:id" element={<ProfileUser />} />
 

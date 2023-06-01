@@ -1,11 +1,12 @@
-
 import { Spinner, Tooltip } from "flowbite-react";
 import { UserData } from "../../Context/UserContext";
 import { ContainerComments } from "../Comments/ContainerComments";
 import { Link } from "react-router-dom";
 import { FaMapMarkerAlt, FaMoneyBillAlt } from "react-icons/fa";
+import { Favorite } from "./Favorite";
+import { changeFavorites } from "../../api/users.api";
 export function Post({ post, setSelectedImage, key }) {
-  const { user } = UserData();
+  const { user, setFavoritesPost, favoritesPost } = UserData();
   const {
     id,
     images,
@@ -16,9 +17,28 @@ export function Post({ post, setSelectedImage, key }) {
     contact,
     inventory,
     address,
-    ownerId
+    ownerId,
   } = post;
-  
+
+  const handleaddFavorite = (idPost) => {
+    let userFavorites = favoritesPost ;
+    if (favoritesPost.get(idPost)) {
+      favoritesPost.delete(idPost);
+    } else {
+      userFavorites.set(idPost, idPost);
+    }
+   
+    setFavoritesPost(new Map(userFavorites.entries()));
+  };
+
+  const verifiedIfFavorite = () => {
+    let userFavorites = favoritesPost;
+
+    let isFavorite = (userFavorites.length !== 0) && 
+      (userFavorites.get(id) !== undefined && userFavorites.get(id) !== null);
+    return isFavorite;
+  };
+
   return (
     <div
       key={key}
@@ -27,14 +47,15 @@ export function Post({ post, setSelectedImage, key }) {
       <div className="flex justify-between  mb-2">
         <p className="text-lg  font-bold break-words">{description}</p>
         <span className="text-gray-500  text-sm">{createdAt}</span>
+        <Favorite
+          isFavorite={verifiedIfFavorite()}
+          addFavorite={() => handleaddFavorite(id)}
+        />
       </div>
       <div className="flex  text-gray-500  text-sm">
-        <Tooltip
-          placement="bottom"
-          content={contact}
-        >
+        <Tooltip placement="bottom" content={contact}>
           <Link to={`/user/${ownerId}`}>
-          <h1 className="px-1 font-bold text-black"> {name}</h1>
+            <h1 className="px-1 font-bold text-black"> {name}</h1>
           </Link>
         </Tooltip>
       </div>
@@ -57,21 +78,21 @@ export function Post({ post, setSelectedImage, key }) {
           </div>
         ))}
       </div>
-      
+
       <div className="flex justify-between align-bottom">
-      {Boolean(precio) && (
-        <div className="flex space-x-1  text-black text-md">
-          <FaMoneyBillAlt className="text-2xl text-primary" />
-          <div>$ {precio}</div>
-        </div>
-      )}
+        {Boolean(precio) && (
+          <div className="flex space-x-1  text-black text-md">
+            <FaMoneyBillAlt className="text-2xl text-primary" />
+            <div>$ {precio}</div>
+          </div>
+        )}
 
-      
-      <Link to={`/buy-item/${id}`}><button style={{width:"fit-content"}} className="button-custom">Ir a comprar</button></Link>
-
+        <Link to={`/buy-item/${id}`}>
+          <button style={{ width: "fit-content" }} className="button-custom">
+            Ir a comprar
+          </button>
+        </Link>
       </div>
-     
-
 
       <div className="flex justify-center">
         <Tooltip
